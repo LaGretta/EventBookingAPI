@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Event Booking Console</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div class="brand">
+                <span class="brand-mark">EB</span>
+                <div>
+                    <h1>Event Booking</h1>
+                    <p>API demo console</p>
+                </div>
+            </div>
+
+            <section class="panel auth-panel">
+                <div class="panel-title">
+                    <h2>Account</h2>
+                    <span id="authBadge" class="badge muted">Guest</span>
+                </div>
+
+                <div class="tabs" role="tablist" aria-label="Auth mode">
+                    <button class="tab active" id="loginTab" type="button">Login</button>
+                    <button class="tab" id="registerTab" type="button">Register</button>
+                </div>
+
+                <form id="authForm" class="stack">
+                    <label id="nameField" class="field hidden">
+                        <span>Full name</span>
+                        <input id="fullName" type="text" autocomplete="name" placeholder="Admin Demo">
+                    </label>
+                    <label class="field">
+                        <span>Email</span>
+                        <input id="email" type="email" autocomplete="email" placeholder="admin@demo.com" required>
+                    </label>
+                    <label class="field">
+                        <span>Password</span>
+                        <input id="password" type="password" autocomplete="current-password" placeholder="123456" required>
+                    </label>
+                    <label id="roleField" class="field hidden">
+                        <span>Role</span>
+                        <select id="role">
+                            <option value="2">Admin</option>
+                            <option value="1">User</option>
+                        </select>
+                    </label>
+                    <button class="primary full" type="submit" id="authSubmit">Login</button>
+                </form>
+
+                <div id="profile" class="profile hidden">
+                    <strong id="profileName"></strong>
+                    <span id="profileEmail"></span>
+                    <button class="ghost full" id="logoutBtn" type="button">Logout</button>
+                </div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-title">
+                    <h2>Connection</h2>
+                    <span id="apiStatus" class="badge muted">Idle</span>
+                </div>
+                <p class="hint">Run the API and use this page on the same host. Default launch URL: <strong>localhost:5285</strong>.</p>
+            </section>
+        </aside>
+
+        <main class="workspace">
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">Resume-ready project check</p>
+                    <h2>Manage events and bookings</h2>
+                </div>
+                <button id="refreshBtn" class="secondary" type="button">Refresh</button>
+            </header>
+
+            <section class="stats">
+                <div class="stat">
+                    <span>Events</span>
+                    <strong id="eventsCount">0</strong>
+                </div>
+                <div class="stat">
+                    <span>Published</span>
+                    <strong id="publishedCount">0</strong>
+                </div>
+                <div class="stat">
+                    <span>My bookings</span>
+                    <strong id="bookingsCount">0</strong>
+                </div>
+                <div class="stat">
+                    <span>Seats left</span>
+                    <strong id="seatsCount">0</strong>
+                </div>
+            </section>
+
+            <section id="adminSection" class="panel wide hidden">
+                <div class="panel-title">
+                    <h2>Create event</h2>
+                    <span class="badge">Admin</span>
+                </div>
+                <form id="eventForm" class="event-form">
+                    <label class="field">
+                        <span>Title</span>
+                        <input id="eventTitle" type="text" placeholder="Tech Meetup 2026" required>
+                    </label>
+                    <label class="field">
+                        <span>Location</span>
+                        <input id="eventLocation" type="text" placeholder="Warsaw" required>
+                    </label>
+                    <label class="field">
+                        <span>Date</span>
+                        <input id="eventDate" type="datetime-local" required>
+                    </label>
+                    <label class="field">
+                        <span>Seats</span>
+                        <input id="eventSeats" type="number" min="1" max="999" value="40" required>
+                    </label>
+                    <label class="field">
+                        <span>Price</span>
+                        <input id="eventPrice" type="number" min="1" step="0.01" value="25" required>
+                    </label>
+                    <label class="field span-2">
+                        <span>Description</span>
+                        <textarea id="eventDescription" rows="3" placeholder="Short event description" required></textarea>
+                    </label>
+                    <button class="primary" type="submit">Create published event</button>
+                </form>
+            </section>
+
+            <section class="content-grid">
+                <section class="panel list-panel">
+                    <div class="panel-title">
+                        <h2>Events</h2>
+                        <span id="eventListBadge" class="badge muted">Login required</span>
+                    </div>
+                    <div id="eventsList" class="list empty-state">Login to load events.</div>
+                </section>
+
+                <section class="panel list-panel">
+                    <div class="panel-title">
+                        <h2>Bookings</h2>
+                        <span id="bookingListBadge" class="badge muted">Login required</span>
+                    </div>
+                    <div id="bookingsList" class="list empty-state">Your bookings will appear here.</div>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+    <script src="/app.js"></script>
+</body>
+</html>

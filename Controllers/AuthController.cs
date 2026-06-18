@@ -1,0 +1,30 @@
+﻿using EventBookingAPI.DTOs;
+using EventBookingAPI.Interfaces.Service;
+using Microsoft.AspNetCore.Mvc;
+
+namespace EventBookingAPI.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class AuthController : ControllerBase
+{
+    private readonly IAuthService _authService;
+
+    public AuthController(IAuthService authService)
+    {
+        _authService = authService;
+    }
+
+    [HttpPost("register")]
+    public async Task<IActionResult> RegisterAsync(RegisterDto dto)
+    {
+        var reg = await _authService.Register(dto);
+        return Ok(reg);
+    }
+    [HttpPost("login")]
+    public async Task<IActionResult> LoginAsync(LoginDto dto)
+    {
+        var log = await _authService.Login(dto);
+        return Ok(log);
+    }
+}
