@@ -47,3 +47,8 @@ coverage/
 ## NuGet
 *.nupkg
 packages/
+bin/
+obj/
+.vs/
+.idea/
+*.user
